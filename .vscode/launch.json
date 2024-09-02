@@ -23,3 +23,53 @@
         }
     ]
 }
+import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Dashboard',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: DashboardScreen(),
+    );
+  }
+}
+
+class DashboardScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Dashboard'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: StaggeredGridView.countBuilder(
+          crossAxisCount: 4,
+          itemCount: 8,
+          itemBuilder: (BuildContext context, int index) => Container(
+            color: Colors.blue,
+            child: Center(
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Text('$index'),
+              ),
+            ),
+          ),
+          staggeredTileBuilder: (int index) =>
+              StaggeredTile.count(2, index.isEven ? 2 : 1),
+          mainAxisSpacing: 4.0,
+          crossAxisSpacing: 4.0,
+        ),
+      ),
+    );
+  }
+}
